@@ -1,5 +1,5 @@
 /* Global Variables */
-let baseURL = 'api.openweathermap.org/data/2.5/weather?zip='; 
+let baseURL = 'https://api.openweathermap.org/data/2.5/weather?zip='; 
 const apiKey = '&appid=3d6f436d4c895fb8306b81741de9a110';  // Personal API Key for OpenWeatherMap API
 let d = new Date();  // Create a new date instance dynamically with JS
 let newDate = d.getMonth()+'.'+ d.getDate()+'.'+ d.getFullYear();
@@ -18,7 +18,7 @@ function performAction(e){
     .then(function (data){
       // Add data
       console.log(data);
-      postData('/weather', {zipcode:data.zip, feelings: feelings, temp: data.temp, date:newDate} );
+      postData('/weather', {date: newDate, temp: data.temp, feelings: data.feelings} );
     })
     .then(function(){
       updateUI()
@@ -47,18 +47,14 @@ const getWeather = async (baseURL, newZipCode, apiKey) => {
         console.log(data);
         return data;
     } catch (error) {
-        console.log ('error', error);
+        console.log ('Error', error);
     }
 }
 
-
-
   
-
-/* Function to POST data */
 // Async POST
-const postData = async ( baseURL, data = {})=>{
-    const response = await fetch(baseURL, {
+const postData = async (url = '', data = {})=>{
+    const resp = await fetch(url, {
     method: 'POST', 
     credentials: 'same-origin', 
     headers: {
@@ -66,11 +62,10 @@ const postData = async ( baseURL, data = {})=>{
     },
     body: JSON.stringify(data), // body data type must match "Content-Type" header        
     });
-
     try {
-      const newData = await response.json();
+      const newData = await resp.json();
       return newData;
     } catch(error) {
-    console.log("error", error);
+    console.log('Error', error);
     }
 }

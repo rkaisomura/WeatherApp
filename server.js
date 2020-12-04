@@ -39,6 +39,8 @@ app.get('/all', function (req, res) {
 app.post('/addWeather', addWeatherData);
 
 function addWeatherData (req,res){
-    projectData.push(req.body);
     console.log(projectData);
-};
+    projectData.date(req.body.date);
+    projectData.temp(req.body.temp);
+    projectData.feellings(req.body.feellings);
+}
