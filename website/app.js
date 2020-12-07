@@ -17,26 +17,22 @@ function performAction(e){
     // New Syntax!
     .then(function (data){
       // Add data
-      console.log(data);
-      postData('/weather', {date: newDate, temp: data.temp, feelings: data.feelings} );
+        postData('/', {newDate, 'temperature': data.main.temp, feelings});
+        updateUI(newDate, data.main.temp , feelings);
     })
-    .then(function(){
-      updateUI()
-    })
+
+    // .then(function(data){
+        
+    // })
 }
 
 //Update UI
-const updateUI = async () => {
-    const request = await fetch('/all');
-    try{
-        const allData = await request.json();
-        document.getElementById('date').innerHTML = allData.date;
-        document.getElementById('temp').innerHTML = allData.temp;
-        document.getElementById('content').innerHTML = allData.feelings;
-    } catch(error){
-        console.log("error", error);
-    }
+function updateUI(date, temp, content) {
+    document.getElementById('date').innerHTML = date;
+    document.getElementById('temp').textContent = temp;
+    document.getElementById('content').textContent = content;
 }
+
 
 // Async GET
 const getWeather = async (baseURL, newZipCode, apiKey) => {
