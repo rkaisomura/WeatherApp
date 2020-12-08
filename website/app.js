@@ -17,7 +17,7 @@ function performAction(e){
     // New Syntax!
     .then(function (data){
       // Add data
-        postData('/weather', {date:newDate, 'temperature': data.main.temp, textFeeling:feelings})
+        postData('/weather', {date:newDate, 'temperature': data.main.temp, textFeeling:feelings});
     })
     .then (function (data){
         updateUI();
@@ -27,7 +27,6 @@ function performAction(e){
 //Update UI
 const updateUI = async() => {
     url = "/weather";
-    console.log(url);
     const req = await fetch (url);
     try {
         const info = await req.json();
@@ -58,17 +57,13 @@ const getWeather = async (baseURL, newZipCode, apiKey) => {
 // Async POST
 const postData = async (url, data = {})=>{
     const resp = await fetch(url, {
-    method: 'POST', 
-    credentials: 'same-origin', 
-    headers: {
-        'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(data), // body data type must match "Content-Type" header        
+        method: 'POST', 
+        credentials: 'same-origin', 
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data), // body data type must match "Content-Type" header        
     });
-    try {
-      const newData = await resp.json();
-      return newData;
-    } catch(error) {
-    console.log('Error', error);
-    }
+    const newData = await resp.json();
+    return newData;
 }

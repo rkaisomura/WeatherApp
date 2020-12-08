@@ -1,5 +1,5 @@
 // Setup empty JS object to act as endpoint for all routes
-let projectData = {};
+projectData = {};
 
 // Require Express to run server and routes
 const express = require('express');
@@ -39,8 +39,8 @@ app.get('/weather', function (req, resp) {
 app.post('/weather', (req, resp) => {
   projectData = {
     date: req.body.date,
-    temp: req.body.temp,
-    feellings: req.body.feellings
+    temp: req.body.temperature,
+    textFeeling: req.body.textFeeling
   }
   console.log(projectData);
 })
