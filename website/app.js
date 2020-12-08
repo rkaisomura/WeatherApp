@@ -17,20 +17,27 @@ function performAction(e){
     // New Syntax!
     .then(function (data){
       // Add data
-        postData('/', {newDate, 'temperature': data.main.temp, feelings});
-        updateUI(newDate, data.main.temp , feelings);
+        postData('/weather', {date:newDate, 'temperature': data.main.temp, textFeeling:feelings})
     })
-
-    // .then(function(data){
-        
-    // })
-}
+    .then (function (data){
+        updateUI();
+    });
+};
 
 //Update UI
-function updateUI(date, temp, content) {
-    document.getElementById('date').innerHTML = date;
-    document.getElementById('temp').textContent = temp;
-    document.getElementById('content').textContent = content;
+const updateUI = async() => {
+    url = "/weather";
+    console.log(url);
+    const req = await fetch (url);
+    try {
+        const info = await req.json();
+        document.getElementById('date').innerHTML = info.date;
+        document.getElementById('temp').textContent = 'Actual temperature: ' + info.temp + ' ℉';
+        document.getElementById('content').textContent = 'How I am feeling today: ' + info.textFeeling;
+    }
+    catch (error) {
+        console.log("error", error);
+    }
 }
 
 
@@ -49,7 +56,7 @@ const getWeather = async (baseURL, newZipCode, apiKey) => {
 
   
 // Async POST
-const postData = async (url = '', data = {})=>{
+const postData = async (url, data = {})=>{
     const resp = await fetch(url, {
     method: 'POST', 
     credentials: 'same-origin', 
