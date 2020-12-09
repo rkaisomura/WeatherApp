@@ -40,6 +40,7 @@ app.post('/weather', (req, resp) => {
   projectData = {
     date: req.body.date,
     temp: req.body.temperature,
+    place: req.body.place,
     textFeeling: req.body.textFeeling
   }
   console.log(projectData);

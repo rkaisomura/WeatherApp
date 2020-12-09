@@ -17,7 +17,7 @@ function performAction(e){
     // New Syntax!
     .then(function (data){
       // Add data
-        postData('/weather', {date:newDate, 'temperature': data.main.temp, textFeeling:feelings});
+        postData('/weather', {date:newDate, 'temperature': data.main.temp, 'place': data.name, textFeeling:feelings});
     })
     .then (function (data){
         updateUI();
@@ -31,8 +31,9 @@ const updateUI = async() => {
     try {
         const info = await req.json();
         document.getElementById('date').innerHTML = info.date;
-        document.getElementById('temp').textContent = 'Actual temperature: ' + info.temp + ' ℉';
-        document.getElementById('content').textContent = 'How I am feeling today: ' + info.textFeeling;
+        document.getElementById('temp').innerHTML = 'Actual temperature: ' + info.temp + ' °F';
+        document.getElementById('place').innerHTML = 'Place: ' + info.place;
+        document.getElementById('content').innerHTML = 'Today I am feeling: ' + info.textFeeling;
     }
     catch (error) {
         console.log("error", error);
@@ -64,6 +65,10 @@ const postData = async (url, data = {})=>{
         },
         body: JSON.stringify(data), // body data type must match "Content-Type" header        
     });
-    const newData = await resp.json();
-    return newData;
+    try{
+        const newData = await resp.json();
+        return newData;
+    } catch (error) {
+        console.log ('Error', error);
+    }
 }
