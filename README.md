@@ -1,5 +1,5 @@
 # Weather App
-It is a synchronous web aplication that uses Web API and user data to dynamically update the UI for a Weather-Journal App.
+It is a synchronous web application that uses Web API and user data to dynamically update the UI for a Weather-Journal App.
 
 ## What was learned
 * Node environment with Express
