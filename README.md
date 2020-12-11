@@ -8,7 +8,7 @@ It is a synchronous web aplication that uses Web API and user data to dynamicall
 * Chain Promises
 
 ## Usage
-User inform an US zip code and write "How are you feeling today?"
+User inform an US zip code and write "How are you feeling today?".<br>
 The app will inform:
 * current date;
 * weather temperature in fahrenheit;
